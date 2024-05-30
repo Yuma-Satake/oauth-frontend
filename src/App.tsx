@@ -23,6 +23,20 @@ const AUTH_URL = authUrl.toString();
 const App: FC = () => {
   const [code, setCode] = useState("");
 
+  const currentUrl = window.location.href;
+  const urlParams = (() => {
+    if (!currentUrl.includes("?")) return {};
+    //現在のURLに付与されているパラメータを配列として取得
+    const urlParam = currentUrl.split("?");
+    const param = urlParam[1].split("&");
+    const paramArray: { [key: string]: string } = {};
+    for (const element of param) {
+      const paramItem = element.split("=");
+      paramArray[paramItem[0]] = paramItem[1];
+    }
+    return paramArray;
+  })();
+
   const handleCode = (code: string): void => {
     setCode(code);
   };
@@ -31,10 +45,22 @@ const App: FC = () => {
     <div>
       <h3>OAuthCode：{code === "" ? "empty" : code}</h3>
       <p>
-        AuthURL
+        <h4>AuthURL</h4>
         <br />
         {AUTH_URL}
       </p>
+      <div>
+        <h4>Params</h4>
+        <br />
+        {Object.keys(urlParams).map((key) => {
+          const typedKey = key as keyof typeof urlParams;
+          return (
+            <p key={key}>
+              {key}: {urlParams[typedKey]}
+            </p>
+          );
+        })}
+      </div>
       <OauthPopup
         title='Login with Google'
         width={600}
