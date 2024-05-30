@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import OauthPopup from "react-oauth-popup";
 import "./global.css";
 
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID ?? "";
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI ?? "";
 const O_AUTH2_ENDPOINT = "https://accounts.google.com/o/oauth2/v2/auth";
+const SCOPES =
+  "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
 
 const params = {
   client_id: CLIENT_ID,
   redirect_uri: REDIRECT_URI,
   response_type: "token",
-  scope:
-    "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
+  scope: SCOPES,
   include_granted_scopes: "true",
   state: "pass-through value",
 };
@@ -19,7 +20,7 @@ const authUrl = new URL(O_AUTH2_ENDPOINT);
 authUrl.search = new URLSearchParams(params).toString();
 const AUTH_URL = authUrl.toString();
 
-const App = () => {
+const App: FC = () => {
   const [code, setCode] = useState("");
 
   const handleCode = (code: string): void => {
@@ -29,6 +30,11 @@ const App = () => {
   return (
     <div>
       <h3>OAuthCode：{code === "" ? "empty" : code}</h3>
+      <p>
+        AuthURL
+        <br />
+        {AUTH_URL}
+      </p>
       <OauthPopup
         title='Login with Google'
         width={600}
