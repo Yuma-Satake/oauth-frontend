@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { RouterInstance } from "./RouterInstance.tsx";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { RouterInstance } from './RouterInstance.tsx';
 
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterInstance />
-  </React.StrictMode>,
+  </React.StrictMode>
 );

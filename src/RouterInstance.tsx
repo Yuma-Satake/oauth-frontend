@@ -1,6 +1,6 @@
-import { FC, ReactNode } from "react";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
-import App from "./App";
+import { FC, ReactNode } from 'react';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import App from './App';
 
 type RouteItemType = {
   path: string;
@@ -13,7 +13,7 @@ type RouteItemType = {
 export const RouterInstance: FC = () => {
   const routeArray: RouteItemType[] = [
     {
-      path: "*",
+      path: '*',
       element: <App />,
     },
   ];
@@ -22,11 +22,7 @@ export const RouterInstance: FC = () => {
     <BrowserRouter>
       <Routes>
         {routeArray.map((routeItem) => (
-          <Route
-            key={routeItem.path}
-            path={routeItem.path}
-            element={routeItem.element}
-          />
+          <Route key={routeItem.path} path={routeItem.path} element={routeItem.element} />
         ))}
       </Routes>
     </BrowserRouter>
